@@ -61,6 +61,29 @@ $.ajax({
       }
     }
 })
+
+// ----------------------------------------------------退出
+/*
+  1.点击退出注册点击事件
+  2.优化问题:询问是否弹出
+  3.确认
+      清空本地token
+      回到登录页面
+*/
+$('#logout').on('click', function () {
+    layer.confirm('你确定退出吗?', {icon: 3, title:'提示'}, function(index){
+      //清空本地token
+      localStorage.removeItem('token')
+  
+      //回到登录页面
+      location.href = './login.html'
+      
+       // index: number值  用户关闭窗口(场景:假如打开多个弹窗,index会去匹配到相对应的弹窗)
+      layer.close(index);
+      
+    });
+  })
+  
   
 
   
