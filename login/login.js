@@ -55,8 +55,36 @@ $('#register .layui-form').on('submit', function (e) {
             }
             // $(this)[0].reset(); -----这个方法错误,这里的this指向已经改变了
             $("#register .layui-form")[0].reset();
-
         }
     })
 
+})
+
+// --------------------------------------------------------- 登录
+$('#login .layui-form').on('submit', function (e) {
+    //1.阻止默认行为
+    e.preventDefault()
+
+    // 2.收集数据
+    var params = $(this).serialize()
+    
+    // 3.发送请求
+    $.ajax({
+        type:'post',
+        url: 'http://ajax.frontend.itheima.net/api/login',
+        data: params,
+        success: function (res) {
+            console.log(res);
+            // 无论成功还是失败,都要给弹窗提示
+            layer.msg(res.message)
+
+            if (res.status == 0) {
+                //把token保存到本地存储
+                localStorage.setItem('token', res.token);
+                
+                //跳转到首页
+                location.href ="./index.html";
+            }
+        }
+    })
 })
