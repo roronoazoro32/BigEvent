@@ -1,3 +1,10 @@
+// 首先判断本地是否有token,避免直接登录到首页
+if (!localStorage.getItem('token')) {
+  location.href='/login.html'
+}
+
+
+
 // ----------------------------------------------------请求个人信息
 $.ajax({
     url: "http://ajax.frontend.itheima.net/my/userinfo",
@@ -47,11 +54,11 @@ $.ajax({
       //原生xhr  找出返回的数据: xhr.reponseText
       //xhr.responseJSON
     // console.log(xhr.responseJSON);
-    if (xhr.responseJSON.status == 1 || xhr.responseJSON.message == "身份认证失败！") {
-      // 比较好的方式：就是清空
-      localStorage.removeItem("token");
-      location.href = "/login.html";
+      if (xhr.responseJSON.status == 1 || xhr.responseJSON.message == "身份认证失败！") {
+        // 比较好的方式：就是清空
+        localStorage.removeItem("token");
+        location.href = "/login.html";
+      }
     }
-    }
-  })
+})
   
