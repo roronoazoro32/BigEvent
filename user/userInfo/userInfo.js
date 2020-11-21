@@ -29,3 +29,34 @@ $.ajax({
 })
 
 
+// ----------------------------------------------------------更新数据
+//步骤:
+// 1.注册点击事件
+// 2.阻止默认行为
+// 3.点击提交
+//      收集表单数据，使用 $('form').serialize() 。（id、nickname、email）
+//      发送ajax请求，完成更新；
+//      更新成功之后，调用父页面的 `get()` 重新渲染index页面的用户信息；
+$('form').on('submit', function (e) {
+    e.preventDefault()
+
+    // 1.收集数据
+    var params=$(this).serialize();
+    // 2.发送数据
+    
+    $.ajax({
+        type: 'post',
+        url: '/my/userinfo',
+        data: params,
+        success: function (res) {
+            layer.msg(res.message)
+            if (res.status == 0) {
+                //业务设计:
+                // uesrInfo页面虽然看起来和index在一个页面中;其实这是两个页面
+                // 通知外层  JS代码  重新获取用户信息
+                window.parent.get();
+
+            }
+        }
+    })
+})
