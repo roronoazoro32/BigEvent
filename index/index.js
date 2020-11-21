@@ -7,11 +7,8 @@ if (!localStorage.getItem('token')) {
 
 // ----------------------------------------------------请求个人信息
 $.ajax({
-    url: "http://ajax.frontend.itheima.net/my/userinfo",
-    // 设置请求头：
-    headers: {
-      "Authorization": localStorage.getItem("token"),
-  },
+    url: "/my/userinfo",
+    
     //请求成功后调用
     success: function(res) {
       // console.log(res);
@@ -24,7 +21,7 @@ $.ajax({
         // res.data.user_pic = undefined;
         // name = "aaa";
   
-        // 头像：如果有头像数据
+        // 头像：如果有头像数据 
         if (res.data.user_pic) {
           // 
           $(".layui-nav-img").show().attr("src", res.data.user_pic);
@@ -47,25 +44,12 @@ $.ajax({
     
     //请求失败后调用
     // fail:function(){}
-
-    // 完成后调用:不管成功还是失败,都会执行这个函数
-  complete: function (xhr) {
-      //xhr:经过JQ封装后,xhr对象   --------这里xhr没有特别的意思,就是为了想用ajax的方法
-      //原生xhr  找出返回的数据: xhr.reponseText
-      //xhr.responseJSON
-    // console.log(xhr.responseJSON);
-      if (xhr.responseJSON.status == 1 || xhr.responseJSON.message == "身份认证失败！") {
-        // 比较好的方式：就是清空
-        localStorage.removeItem("token");
-        location.href = "/login.html";
-      }
-    }
 })
 
 // ----------------------------------------------------退出
 /*
   1.点击退出注册点击事件
-  2.优化问题:询问是否弹出
+  2.优化问题:询问是否退出
   3.确认
       清空本地token
       回到登录页面

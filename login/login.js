@@ -39,7 +39,7 @@ $('#register .layui-form').on('submit', function (e) {
 
     $.ajax({
         type: 'post',
-         url: 'http://ajax.frontend.itheima.net/api/reguser',
+         url: '/api/reguser',
         data: params,
         success: function (res) {
                // 弹窗：msg 简单弹窗、会自动消失；
@@ -55,6 +55,7 @@ $('#register .layui-form').on('submit', function (e) {
             }
             // $(this)[0].reset(); -----这个方法错误,这里的this指向已经改变了
             $("#register .layui-form")[0].reset();
+            //reset() 方法可以把表单中的元素重置为他们的默认值
         }
     })
 
@@ -71,7 +72,7 @@ $('#login .layui-form').on('submit', function (e) {
     // 3.发送请求
     $.ajax({
         type:'post',
-        url: 'http://ajax.frontend.itheima.net/api/login',
+        url: '/api/login',
         data: params,
         success: function (res) {
             console.log(res);
